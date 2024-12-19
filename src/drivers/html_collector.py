@@ -4,14 +4,14 @@ from .interfaces.html_collector import HtmlCollectorInterface
 
 
 class HtmlCollector(HtmlCollectorInterface):
-    
+
     @classmethod
     def collect_essential_information(cls, html: str) -> List[Dict[str, str]]:
         soup = BeautifulSoup(html, 'html.parser')
-        
+
         artists_name_list = soup.find(class_='BodyText')
         artists_name_list_items = artists_name_list.find_all('a')
-        
+
         essential_information = []
         for artist_name in artists_name_list_items:
             names = artist_name.contents[0]
@@ -20,6 +20,5 @@ class HtmlCollector(HtmlCollectorInterface):
                 'name': names,
                 'link': links
             })
-            
+
         return essential_information
-    
